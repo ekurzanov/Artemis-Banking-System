@@ -49,7 +49,7 @@ def create():
     card_database.append(card)
 
 
-i = 0
+k = 0
 
 
 def login():
@@ -57,33 +57,33 @@ def login():
     if any(instance.number == var_card_number for instance in card_database):
         for element in card_database:
             if element.number == var_card_number:
-                i = card_database.index(element)
+                k = card_database.index(element)
         var_card_pin = input('Введите PIN вашей карты: \n')
-        if card_database[i].pin == var_card_pin:
+        if card_database[k].pin == var_card_pin:
             login_menu()
         else:
-            print('Введен нерпавильный PIN')
+            print('Введен неправильный PIN')
     else:
         print('Введен неправильный номер карты')
 
 
 def login_menu():
-    print('Вход выполнен успешно!\n'
-          '\nМеню счета')
+    print('\nВход выполнен успешно!'
+          '\nМеню счета {}'.format(card_database[k].number))
     while True:
         log_menu_opt = int(input('1. Проверить баланс \n'
                                  '2. Назад в меню \n'
                                  '0. Выход \n'))
         if log_menu_opt == 1:
-            print(card_database[i].balance)
+            print('Баланс:', card_database[k].balance)
         elif log_menu_opt == 2:
-            print('Вы вышли из аккаунта!')
+            print('Вы вышли из аккаунта')
             menu()
         elif log_menu_opt == 0:
             print('Bye!')
             exit()
         else:
-            print('Введены числа не из диапазона 0, 1, 2')
+            print('Введены числа не из диапазона 1, 2 или 0')
 
 
 menu()
