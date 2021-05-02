@@ -1,4 +1,5 @@
 import random
+import clipboard
 
 
 class Card:
@@ -13,13 +14,12 @@ class Card:
     def generate_number(self):
         for i in range(10):
             self.number += str(random.randint(0, 9))
-            i += 1
         print('Номер вашей карты:', self.number)
+        clipboard.copy(self.number)
 
     def generate_pin(self):
         for i in range(4):
             self.pin += str(random.randint(0, 9))
-            i += 1
         print('Ваш PIN:', self.pin, '\n')
 
 
@@ -29,7 +29,7 @@ card_database = []
 def menu():
     while True:
         print('Главное меню\n'
-              'Выберите номер операции:')
+              'Введите номер операции:')
         menu_opt = int(input('1. Открыть счет в банке\n'
                              '2. Смотреть счет \n'
                              '0. Выход \n'))
@@ -49,33 +49,30 @@ def create():
     card_database.append(card)
 
 
-k = 0
-
-
 def login():
+    global var_card_ind
+    var_card_ind = -1
     var_card_number = input('Введите номер вашей карты: \n')
-    if any(instance.number == var_card_number for instance in card_database):
-        for element in card_database:
-            if element.number == var_card_number:
-                k = card_database.index(element)
-        var_card_pin = input('Введите PIN вашей карты: \n')
-        if card_database[k].pin == var_card_pin:
-            login_menu()
+    for obj in card_database:
+        var_card_ind += 1
+        if obj.number == var_card_number:
+            if obj.pin == input('Введите PIN вашей карты: \n'):
+                login_menu()
+            else:
+                print('Введен неправильный PIN')
         else:
-            print('Введен неправильный PIN')
-    else:
-        print('Введен неправильный номер карты')
+            print('Введен неправильный номер карты')
 
 
 def login_menu():
     print('\nВход выполнен успешно!'
-          '\nМеню счета {}'.format(card_database[k].number))
+          '\nМеню счета {}'.format(card_database[var_card_ind].number))
     while True:
         log_menu_opt = int(input('1. Проверить баланс \n'
                                  '2. Назад в меню \n'
                                  '0. Выход \n'))
         if log_menu_opt == 1:
-            print('Баланс:', card_database[k].balance)
+            print('Баланс:', card_database[var_card_ind].balance)
         elif log_menu_opt == 2:
             print('Вы вышли из аккаунта')
             menu()
