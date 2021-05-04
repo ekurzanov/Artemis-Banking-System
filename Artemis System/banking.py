@@ -1,6 +1,7 @@
 import random
 import clipboard
 
+card_database = []
 
 class Card:
     balance = 0
@@ -12,8 +13,7 @@ class Card:
         self.generate_pin()
 
     def generate_number(self):
-        for i in range(10):
-            self.number += str(random.randint(0, 9))
+        self.number += str(random.randint(1000000000, 9999999999))
         print('Номер вашей карты:', self.number)
         clipboard.copy(self.number)
 
@@ -21,9 +21,6 @@ class Card:
         for i in range(4):
             self.pin += str(random.randint(0, 9))
         print('Ваш PIN:', self.pin, '\n')
-
-
-card_database = []
 
 
 def menu():
@@ -50,6 +47,9 @@ def create():
 
 
 def login():
+    if not card_database:
+        print('Открытых счетов не найдено. Возврат в главное меню...\n')
+        menu()
     global var_card_ind
     var_card_ind = -1
     var_card_number = input('Введите номер вашей карты: \n')
