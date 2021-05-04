@@ -3,6 +3,7 @@ import clipboard
 
 card_database = []
 
+
 class Card:
     balance = 0
     number = '400000'
@@ -27,14 +28,14 @@ def menu():
     while True:
         print('Главное меню\n'
               'Введите номер операции:')
-        menu_opt = int(input('1. Открыть счет в банке\n'
-                             '2. Смотреть счет \n'
-                             '0. Выход \n'))
-        if menu_opt == 1:
+        menu_opt = input('1. Открыть счет в банке\n'
+                         '2. Смотреть счет \n'
+                         '0. Выход \n')
+        if menu_opt == '1':
             create()
-        elif menu_opt == 2:
+        elif menu_opt == '2':
             login()
-        elif menu_opt == 0:
+        elif menu_opt == '0':
             print('До свидания!')
             exit()
         else:
@@ -68,15 +69,15 @@ def login_menu():
     print('\nВход выполнен успешно!'
           '\nМеню счета {}'.format(card_database[var_card_ind].number))
     while True:
-        log_menu_opt = int(input('1. Проверить баланс \n'
-                                 '2. Назад в меню \n'
-                                 '0. Выход \n'))
-        if log_menu_opt == 1:
+        log_menu_opt = input('1. Проверить баланс \n'
+                             '2. Назад в меню \n'
+                             '0. Выход \n')
+        if log_menu_opt == '1':
             print('Баланс:', card_database[var_card_ind].balance)
-        elif log_menu_opt == 2:
+        elif log_menu_opt == '2':
             print('Вы вышли из аккаунта')
             menu()
-        elif log_menu_opt == 0:
+        elif log_menu_opt == '0':
             print('Bye!')
             exit()
         else:
